@@ -2,7 +2,7 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userApi, authApi, isAuthorized } from '../api/userApi';
 import { Dispatch, SetStateAction } from "react";
-import { getUser, updateUser } from '../api/localStorage'
+import { getUser, updateUser } from '../api/utils'
 
 interface IUser {
     id: string;
@@ -11,35 +11,18 @@ interface IUser {
     token: string;
 }
 
-interface ILog {
-    isLogged: boolean;
-    setIsLogged: Dispatch<SetStateAction<boolean>>;
-}
+// interface ILog {
+//     isLogged: boolean;
+//     setIsLogged: Dispatch<SetStateAction<boolean>>;
+// }
 
-type Props = IUser & ILog;
+// type Props = IUser & ILog;
 
-const Login = (props: Props) => {
+const Login = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        const fetchAuth = async () => {
-            console.log(props.isLogged)
-            if (!props.isLogged) {
-                const auth = await isAuthorized()
-                if (auth === 'OK') {
-                    props.setIsLogged(true)
-                    navigate('/home')
-                    window.location.reload()
-                }
-                return
-            }
-            props.setIsLogged(true)
-            navigate('/home')
-            window.location.reload()
-        }
 
-        fetchAuth()
-            .catch(console.error)
     }, []);
 
     const [email, setEmail] = useState<string>('');
@@ -59,14 +42,13 @@ const Login = (props: Props) => {
 
             console.log(user)
 
-            updateUser(user)
-
             if (statusText !== 'OK') {
                 setEmail('')
                 setPassword('')
                 return
             }
 
+            updateUser(user)
             navigate('/home')
 
         } catch (err) {
@@ -90,10 +72,6 @@ const Login = (props: Props) => {
                         <label htmlFor="inputPassword" className="form-label d-flex justify-content-center">Password</label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control text-center" id="inputPassword" value={password}></input>
                     </div>
-                    <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1"></input>
-                    </div>
-
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary m-2 mt-0">Login</button>
                         <p className="mt-5"><Link to='/register'>Or create a new account here!</Link></p>

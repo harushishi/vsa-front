@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { authApi, userApi, isAuthorized } from '../api/userApi';
 import { Dispatch, SetStateAction } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { propsToAttrMap } from '@vue/shared';
+import { getUser, updateUser, auth } from '../api/utils'
+
 
 interface IUser {
     id: string;
@@ -20,24 +21,20 @@ interface ILog {
 type Props = IUser & ILog;
 
 
-const Home = (props: Props) => {
+const Home = () => {
 
     let navigate = useNavigate();
+    const user = getUser()
 
     useEffect(() => {
-        const fetchAuth = async () => {
-            const auth = await isAuthorized()
+        if (!auth(user)) {
+            navigate('/login')
         }
-        fetchAuth()
-            .catch((function (e) {
-                console.log(e)
-                navigate('/login')
-            }))
     }, []);
 
     return (
         <div>
-
+            <p>hello, {user.name}</p>
         </div>
     );
 }
