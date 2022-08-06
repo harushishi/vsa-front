@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import Register from './components/Register';
-import Home from './components/Home';
+import Profile from './views/Profile';
+import Login from './views/Login';
+import Register from './views/Register';
+import Home from './views/Home';
 import { getUser, updateUser } from './api/utils'
 import { useState } from 'react';
 
@@ -22,6 +22,7 @@ const Main = () => {
     return (
         <Routes>
             <Route path='/home' element={<Home />} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
         </Routes>

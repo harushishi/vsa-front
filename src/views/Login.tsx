@@ -37,6 +37,7 @@ const Login = () => {
                 id: data.user.id,
                 name: data.user.name,
                 email: data.user.email,
+                pfp: data.user.pfp,
                 token: data.token,
             }
 
@@ -59,8 +60,7 @@ const Login = () => {
     }
 
     return (
-        <div className="container-fluid min-vh-100">
-            <p>{ }</p>
+        <div className="container-fluid min-vh-100 bg-dark">
             <div className="row" style={{ height: 250 }}> </div>
             <div className="d-flex justify-content-center mt-lg-4">
                 <form className="w-25" onSubmit={login}>
