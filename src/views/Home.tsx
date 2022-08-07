@@ -26,7 +26,7 @@ const Home = () => {
                     <Navbar />
                 </div>
                 <div className="col-5 bg-black border-end border-secondary">
-                    <Post />
+
                 </div>
                 <div className="col bg-black border-end border-secondary">
 

@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../api/utils';
+import { PostProps } from '../api/types'
 
-const Post = () => {
+const Post = (Props: PostProps) => {
 
     let navigate = useNavigate();
     const user = getUser()
+    const date = new Date(Props.createdAt)
+
+    console.log(date)
 
     return (
         <div className='container-fluid text-white bg-black mt-3'>
@@ -18,12 +22,12 @@ const Post = () => {
                         {user.name}
                     </div>
                     <div className='col-9 fst-italic mx-2' style={{ fontSize: '0.9em' }}>
-                        6 ago. 14:00pm
+                        {date.toLocaleDateString() + ' - ' + date.toLocaleTimeString()}
                     </div>
                     <div className='container mx-2 mt-2'>
-                        Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb
+                        {Props.content}
                     </div>
-                    <img src='https://pbs.twimg.com/media/FIYXPsvUYAEOZ0f.jpg'
+                    <img src={`https://vsa-bucket-test.s3.sa-east-1.amazonaws.com/${Props.img}`}
                         className='img-fluid mt-2' style={{ maxWidth: '600px' }}></img>
                 </div>
             </div>

@@ -3,25 +3,36 @@ import { useNavigate } from 'react-router-dom';
 import { auth, getUser } from '../api/utils';
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
-
-type User = {
-    id: number,
-    name: string,
-    email: string
-}
+import { userApi } from '../api/userApi'
+import { IPost, IPostUser } from '../api/types'
 
 const Profile = () => {
 
     let navigate = useNavigate();
-
     const user = getUser()
-    const [userPfp, setUserPfp] = useState();
+    const [posts, setPosts] = useState<IPost[]>([]);
+
+    const fetchPosts = async () => {
+        const { data } = await userApi(`/posts/4`)
+        setPosts(data)
+    }
+
+    const renderPosts = () => {
+
+        return (
+            <div>
+                {posts.map(post => (
+                    <Post name={user.name} pfp={user.pfp} {...post} key={post.id} />
+                ))}
+            </div>
+        )
+    }
 
     useEffect(() => {
         if (!auth(user)) {
             navigate('/login')
         }
-
+        fetchPosts()
     }, []);
 
     return (
@@ -30,8 +41,8 @@ const Profile = () => {
                 <div className="col  bg-black border-end border-secondary">
                     <Navbar />
                 </div>
-                <div className="col-7 bg-black border-end border-secondary">
-                    <Post />
+                <div className="col-5 bg-black border-end border-secondary">
+                    {renderPosts()}
                 </div>
                 <div className="col bg-black border-end border-secondary">
 

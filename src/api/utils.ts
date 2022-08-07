@@ -2,20 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from 'react-router-dom';
-
-interface IUser {
-    id: string;
-    name: string;
-    email: string;
-    token: string;
-    pfp: string;
-}
-
-interface Token {
-    user: IUser,
-    iat: number,
-    exp: number
-}
+import { IUser, IToken } from './types';
 
 export const getUser = (): IUser => {
 
@@ -47,7 +34,7 @@ export const logOut = () => {
 }
 
 export const auth = (user: IUser) => {
-    const tok: Token = jwt_decode<Token>(user.token)
+    const tok: IToken = jwt_decode<IToken>(user.token)
     console.log('Tiempo de exp: ' + tok.exp * 1000)
     console.log('Tiempo actual: ' + Date.now())
     if (tok.exp * 1000 < Date.now()) {

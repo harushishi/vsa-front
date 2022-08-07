@@ -1,22 +1,7 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userApi, authApi, isAuthorized } from '../api/userApi';
-import { Dispatch, SetStateAction } from "react";
 import { getUser, updateUser } from '../api/utils'
-
-interface IUser {
-    id: string;
-    name: string;
-    email: string;
-    token: string;
-}
-
-// interface ILog {
-//     isLogged: boolean;
-//     setIsLogged: Dispatch<SetStateAction<boolean>>;
-// }
-
-// type Props = IUser & ILog;
 
 const Login = () => {
     let navigate = useNavigate();
