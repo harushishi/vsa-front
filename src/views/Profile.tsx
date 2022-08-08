@@ -4,7 +4,7 @@ import { auth, getUser } from '../api/utils';
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import { userApi } from '../api/userApi'
-import { IPost, IPostUser } from '../api/types'
+import { IPost } from '../api/types'
 
 const Profile = () => {
 
@@ -13,7 +13,7 @@ const Profile = () => {
     const [posts, setPosts] = useState<IPost[]>([]);
 
     const fetchPosts = async () => {
-        const { data } = await userApi(`/posts/4`)
+        const { data } = await userApi(`/posts/${user.id}`)
         setPosts(data)
     }
 
@@ -22,7 +22,7 @@ const Profile = () => {
         return (
             <div>
                 {posts.map(post => (
-                    <Post name={user.name} pfp={user.pfp} {...post} key={post.id} />
+                    <Post {...post} key={post.id} />
                 ))}
             </div>
         )

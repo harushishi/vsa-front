@@ -8,18 +8,23 @@ export interface IUser {
 
 export interface IPost {
     id: number,
-    authorId: number
+    authorId: number,
     createdAt: Date,
     content: string,
     img: string,
+    author: {
+        name: string,
+        pfp: string,
+    }
 }
 
-export interface IPostUser {
-    name: string,
-    pfp: string,
+export interface IFollowing {
+    id: number,
+    userId: number,
+    followedUserId: number,
+    followedUsername: string,
+    followedUserPfp: string
 }
-
-export type PostProps = IPost & IPostUser
 
 export interface IToken {
     user: IUser,

@@ -11,6 +11,7 @@ export const getUser = (): IUser => {
         name: localStorage.getItem('name') ?? '',
         email: localStorage.getItem('email') ?? '',
         token: localStorage.getItem('token') ?? '',
+        following: localStorage.getItem('following') ?? '',
         pfp: 'https://vsa-bucket-test.s3.sa-east-1.amazonaws.com/' + localStorage.getItem('pfp') ?? 'default.png',
     }
     return currentUser
@@ -22,7 +23,6 @@ export const updateUser = (user: IUser) => {
     localStorage.setItem('email', user.email)
     localStorage.setItem('pfp', user.pfp)
     localStorage.setItem('id', user.id)
-
 }
 
 export const logOut = () => {
