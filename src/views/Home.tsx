@@ -58,15 +58,15 @@ const Home = () => {
     return (
         <div className="container-fluid">
             <div className="row min-vh-100">
-                <div className="col  bg-black border-end border-secondary">
+                <div className="col  bg-black  border-secondary"></div>
+                <div className="col bg-black border-end border-secondary">
                     <Navbar />
                 </div>
                 <div className="col-5 bg-black border-end border-secondary">
                     {renderPosts()}
                 </div>
-                <div className="col bg-black border-end border-secondary">
-
-                </div>
+                <div className="col bg-black  border-secondary"></div>
+                <div className="col  bg-black border-secondary"></div>
             </div>
         </div>
     );

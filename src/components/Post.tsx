@@ -15,18 +15,18 @@ const Post = (Props: IPost) => {
                     <img src={`https://vsa-bucket-test.s3.sa-east-1.amazonaws.com/${Props.author.pfp}`} className='img-fluid rounded-circle' style={{ maxHeight: '60px' }}></img>
                 </div>
                 <div className='col-11'>
-                    <div className='col mx-2 mt-1 fw-bold fs-6'>
+                    <div className='col mt-1 mx-2 fw-bold fs-6'>
                         {Props.author.name}
                     </div>
                     <div className='col-9 fst-italic mx-2' style={{ fontSize: '0.9em' }}>
                         {date.toLocaleDateString() + ' - ' + date.toLocaleTimeString()}
                     </div>
-                    <div className='container mx-2 mt-2'>
+                    <div className='container mt-3 mx-2'>
                         {Props.content}
                     </div>
                     {Props.img !== null &&
                         <img src={`https://vsa-bucket-test.s3.sa-east-1.amazonaws.com/${Props.img}`}
-                            className='img-fluid mt-2' style={{ maxWidth: '600px' }}></img>
+                            className='img-fluid mt-3' style={{ maxWidth: '600px' }}></img>
                     }
 
                 </div>
