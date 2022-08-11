@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../api/utils';
+import Inputbox from './Inputbox';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 const Navbar = () => {
@@ -27,13 +30,11 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                     <a className='nav-link text-white fs-4'>
-                        Notifications
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className='nav-link text-white fs-4'>
                         Messages
                     </a>
+                </li>
+                <li className="nav-item d-grid gap-2">
+                    <Inputbox />
                 </li>
             </ul>
             <hr />
