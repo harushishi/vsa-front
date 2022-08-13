@@ -14,11 +14,15 @@ const Profile = () => {
 
     const fetchPosts = async () => {
         const { data } = await userApi(`/posts/${user.id}`)
+
+        data.sort((a: IPost, b: IPost) => {
+            return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())
+        })
+
         setPosts(data)
     }
 
     const renderPosts = () => {
-
         return (
             <div>
                 {posts.map(post => (

@@ -31,6 +31,11 @@ const Home = () => {
 
                 data = data.concat(res.data)
             });
+
+            data.sort((a: IPost, b: IPost) => {
+                return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())
+            })
+
             setPosts(data)
         }
         )

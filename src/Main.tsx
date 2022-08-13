@@ -16,8 +16,6 @@ type User = {
 const Main = () => {
 
     const user = getUser()
-    // const [isLogged, setIsLogged] = useState<boolean>(false);
-    // const [currentUser, setCurrentUser] = useState<User>(user);
 
     return (
         <Routes>

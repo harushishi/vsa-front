@@ -57,6 +57,7 @@ const Login = () => {
                         <label htmlFor="inputPassword" className="form-label d-flex justify-content-center">Password</label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control text-center" id="inputPassword" value={password}></input>
                     </div>
+                    <br></br>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary m-2 mt-0">Login</button>
                         <p className="mt-5"><Link to='/register'>Or create a new account here!</Link></p>

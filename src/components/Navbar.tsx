@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../api/utils';
 import Inputbox from './Inputbox';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import SplitButton from 'react-bootstrap/SplitButton';
 
 
 const Navbar = () => {
@@ -38,12 +39,37 @@ const Navbar = () => {
                 </li>
             </ul>
             <hr />
-            <div className="dropdown">
-                <a id="dropdownUser1" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img className='rounded-circle me-2' src={user.pfp} style={{ maxHeight: '75px' }} ></img>
-                    <strong>{user.name}</strong>
-                </a>
+            <div className="d-flex align-items-center text-white text-decoration-none">
+                <img className='rounded-circle me-2' src={user.pfp} style={{ maxHeight: '75px' }} ></img>
+                <Dropdown drop='up'>
+
+                    <Dropdown.Toggle id="user-menu" variant="black text-white">
+                        {user.name}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu variant="dark">
+                        <Dropdown.Item eventKey="1">Upload avatar</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item eventKey="2">Log out</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
+
+            {/* <div className="d-flex align-items-center text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                <img className='rounded-circle me-2' src={user.pfp} style={{ maxHeight: '75px' }} ></img>
+                <DropdownButton
+                    key={'user'}
+                    id={`dropdown-button-drop-up}`}
+                    drop='up'
+                    variant="black text-white"
+                    title={`${user.name}`}
+                >
+                    <Dropdown.Menu variant="dark">
+                        <Dropdown.Item eventKey="1">Upload avatar</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">Log out</Dropdown.Item>
+                    </Dropdown.Menu>
+                </DropdownButton>
+            </div> */}
         </div>
     );
 }
