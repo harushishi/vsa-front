@@ -1,4 +1,6 @@
-export interface IUser {
+import React from "react";
+
+export type TUser = {
     id: string;
     name: string;
     email: string;
@@ -6,19 +8,39 @@ export interface IUser {
     pfp: string;
 }
 
-export interface IPost {
+export type TAuthorInfo = {
+    id: string;
+    name: string;
+    pfp: string;
+}
+
+export type TUserContext = {
+    user: TUser,
+    setUser: React.Dispatch<React.SetStateAction<TUser>>
+}
+
+export type TPost = {
     id: number,
-    authorId: number,
+    authorId: string,
     createdAt: Date,
     content: string,
     img: string,
-    author: {
-        name: string,
-        pfp: string,
-    }
 }
 
-export interface IFollowing {
+export type TPostProps = {
+    id: number,
+    authorId: string,
+    createdAt: Date,
+    content: string,
+    img: string,
+    pfp: string,
+    authorName: string,
+}
+
+//mejorar esto en base a este tipo para los posts de home
+export type TUserPost = TUser & { posts: Array<TPost> }
+
+export type TFollowing = {
     id: number,
     userId: number,
     followedUserId: number,
@@ -26,8 +48,8 @@ export interface IFollowing {
     followedUserPfp: string
 }
 
-export interface IToken {
-    user: IUser,
+export type TToken = {
+    user: TUser,
     iat: number,
     exp: number
 }

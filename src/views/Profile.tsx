@@ -4,18 +4,20 @@ import { auth, getUser } from '../api/utils';
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import { userApi } from '../api/userApi'
-import { IPost } from '../api/types'
+import { TPost } from '../api/types'
+import { useUser } from '../context/UserContext';
 
 const Profile = () => {
 
     let navigate = useNavigate();
-    const user = getUser()
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const { user, setUser } = useUser()
+    const [posts, setPosts] = useState<TPost[]>([]);
+
 
     const fetchPosts = async () => {
         const { data } = await userApi(`/posts/${user.id}`)
 
-        data.sort((a: IPost, b: IPost) => {
+        data.sort((a: TPost, b: TPost) => {
             return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())
         })
 
@@ -24,18 +26,17 @@ const Profile = () => {
 
     const renderPosts = () => {
         return (
-            <div>
-                {posts.map(post => (
-                    <Post {...post} key={post.id} />
-                ))}
-            </div>
+            <>{posts.map(post => (<Post {...post} key={post.id} />))}</>
         )
     }
 
     useEffect(() => {
+        setUser(getUser())
+
         if (!auth(user)) {
             navigate('/login')
         }
+
         fetchPosts()
     }, []);
 

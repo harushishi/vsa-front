@@ -1,58 +1,42 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { authApi, userApi, isAuthorized } from '../api/userApi';
-import { Dispatch, SetStateAction } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import { getUser, updateUser, auth } from '../api/utils'
+import { useNavigate } from 'react-router-dom';
+import { getUser, auth } from '../api/utils'
+import { useUser } from '../context/UserContext';
+import { getUserFollows, getUsersPosts } from '../api/mappers';
 import Navbar from '../components/Navbar';
+import { TFollowing, TPost, TPostProps, TUser, TUserPost } from '../api/types';
 import Post from '../components/Post';
-import { IPost, IFollowing } from '../api/types';
-
 
 const Home = () => {
 
     let navigate = useNavigate();
-    const user = getUser()
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const { user, setUser } = useUser()
+    const [usersPosts, setUsersPosts] = useState<TUserPost[]>([]);
 
     const fetchPosts = async () => {
-        async function fetchFollowedUsers() {
-            const { data } = await userApi(`/following/${user.id}`)
-            return data
-        }
-
-        const users: IFollowing[] = await fetchFollowedUsers()
-
-        const promises = users.map(user => userApi(`/posts/${user.followedUserId}`))
-
-        await Promise.all(promises).then(res => {
-            let data: IPost[] = [];
-            res.forEach(res => {
-
-                data = data.concat(res.data)
-            });
-
-            data.sort((a: IPost, b: IPost) => {
-                return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())
-            })
-
-            setPosts(data)
-        }
-        )
+        const follows = await getUserFollows(user)
+        const usersPosts = await getUsersPosts(follows)
+        setUsersPosts(usersPosts)
     }
 
     const renderPosts = () => {
+        let posts: TPost[] = []
 
-        return (
-            <div>
-                {posts.map(post => (
-                    <Post {...post} key={post.id} />
-                ))}
-            </div>
-        )
+        usersPosts.forEach(user => {
+            user.posts.forEach(post => {
+                posts.push(post)
+            })
+        })
+
+        posts.sort((a: TPost, b: TPost) => {
+            return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())
+        })
+
+        return (<>{posts.map(post => <Post {...post} key={post.id} />)}</>)
     }
 
     useEffect(() => {
+        setUser(getUser())
         if (!auth(user)) {
             navigate('/login')
         }

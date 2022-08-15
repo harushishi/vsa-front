@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../api/utils';
 import Inputbox from './Inputbox';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import SplitButton from 'react-bootstrap/SplitButton';
+import { getUser, logOut } from '../api/utils'
+import AvatarUpload from './AvatarUpload';
+import { useUser } from '../context/UserContext';
+
 
 
 const Navbar = () => {
 
     let navigate = useNavigate();
-    const user = getUser()
+    const { user, setUser } = useUser()
+
+    const handleLogOut = () => {
+        logOut()
+        setUser(getUser)
+        navigate('/login')
+    }
 
     return (
         <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-black  min-vh-100 position-fixed" style={{ width: '250px' }}>
@@ -48,28 +54,12 @@ const Navbar = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
-                        <Dropdown.Item eventKey="1">Upload avatar</Dropdown.Item>
+                        <AvatarUpload />
                         <Dropdown.Divider />
-                        <Dropdown.Item eventKey="2">Log out</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" onClick={handleLogOut}>Log out</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-
-            {/* <div className="d-flex align-items-center text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                <img className='rounded-circle me-2' src={user.pfp} style={{ maxHeight: '75px' }} ></img>
-                <DropdownButton
-                    key={'user'}
-                    id={`dropdown-button-drop-up}`}
-                    drop='up'
-                    variant="black text-white"
-                    title={`${user.name}`}
-                >
-                    <Dropdown.Menu variant="dark">
-                        <Dropdown.Item eventKey="1">Upload avatar</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Log out</Dropdown.Item>
-                    </Dropdown.Menu>
-                </DropdownButton>
-            </div> */}
         </div>
     );
 }

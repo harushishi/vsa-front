@@ -1,24 +1,22 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { userApi, authApi, isAuthorized } from '../api/userApi';
-import { getUser, updateUser } from '../api/utils'
+import { authApi } from '../api/userApi';
+import { auth, updateUser } from '../api/utils'
+import { useUser } from '../context/UserContext'
 
 const Login = () => {
     let navigate = useNavigate();
 
-    useEffect(() => {
-
-    }, []);
-
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const { user, setUser } = useUser()
 
     const login = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         try {
             const { data, statusText } = await authApi.post((`/login`), { email, password })
 
-            const user = {
+            const userInfo = {
                 id: data.user.id,
                 name: data.user.name,
                 email: data.user.email,
@@ -26,7 +24,7 @@ const Login = () => {
                 token: data.token,
             }
 
-            console.log(user)
+            console.log(userInfo)
 
             if (statusText !== 'OK') {
                 setEmail('')
@@ -34,7 +32,8 @@ const Login = () => {
                 return
             }
 
-            updateUser(user)
+            updateUser(userInfo)
+            setUser(userInfo)
             navigate('/home')
 
         } catch (err) {
@@ -43,6 +42,12 @@ const Login = () => {
             setPassword('')
         }
     }
+
+    useEffect(() => {
+        if (auth(user)) {
+            navigate('/home')
+        }
+    }, []);
 
     return (
         <div className="container-fluid min-vh-100 bg-dark">

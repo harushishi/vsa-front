@@ -3,27 +3,20 @@ import Profile from './views/Profile';
 import Login from './views/Login';
 import Register from './views/Register';
 import Home from './views/Home';
-import { getUser, updateUser } from './api/utils'
-import { useState } from 'react';
-
-type User = {
-    id: string;
-    name: string;
-    email: string;
-    token: string;
-}
+import { UserContextProvider } from './context/UserContext';
 
 const Main = () => {
 
-    const user = getUser()
-
     return (
-        <Routes>
-            <Route path='/home' element={<Home />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-        </Routes>
+        <UserContextProvider>
+            <Routes>
+                <Route path='/' element={<Login />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/home' element={<Home />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/register' element={<Register />} />
+            </Routes>
+        </UserContextProvider>
     );
 }
 export default Main;
