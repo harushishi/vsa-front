@@ -11,6 +11,11 @@ export const authApi = axios.create({
     headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') ?? '' }
 });
 
+export const postApi = axios.create({
+    baseURL: 'http://localhost:3000/api/posts',
+    headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') ?? '' }
+});
+
 export const isAuthorized = async () => {
     console.log(localStorage.getItem('token'))
     const req = await authApi.get(`/authorize`)

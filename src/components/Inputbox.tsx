@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { userApi } from '../api/userApi';
+import { postApi } from '../api/apiRoutes';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../api/utils';
 
@@ -22,13 +22,13 @@ function Inputbox() {
 
     const sendPost = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
+        console.log(selectedFile)
         const formData: any = new FormData()
-        formData.append('image', selectedFile)
+        formData.append('file', selectedFile)
         formData.append('content', content)
 
         try {
-            await userApi.post((`/create/${user.id}`), formData)
+            await postApi.post((`/create/${user.id}`), formData)
             setShow(false)
             window.location.reload()
         } catch (err: any) {
@@ -62,7 +62,7 @@ function Inputbox() {
                         </div>
                         <div className='d-flex bd-highlight mt-2'>
                             <br></br>
-                            <input type="file" id="image" name="image" accept="image/png, image/jpeg" onChange={handleFile}
+                            <input type="file" id="file" name="file" accept="image/png, image/jpeg, video/mp4, video/webm" onChange={handleFile}
                                 className='p-2 bd-highlight' />
                             <button type="submit" className="btn btn-info btn-sm rounded-pill ms-auto mx-2 bd-highlight text-white fw-bolder">Send</button>
                         </div>

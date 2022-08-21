@@ -1,5 +1,5 @@
 import { TFollowing, TPost, TUser, TUserPost } from "./types";
-import { userApi } from "./userApi";
+import { userApi, postApi } from "./apiRoutes";
 
 export const getUserFollows = async (user: TUser) => {
 
@@ -13,7 +13,7 @@ export const getUserFollows = async (user: TUser) => {
     //hasta aca tengo los usuarios que sigue
     const userIds: Number[] = await fetchFollowedUsers()
 
-    const promises = userIds.map(user => userApi(`/${user}`))
+    const promises = userIds.map(user => userApi.get(`/${user}`))
 
     const users = await Promise.all(promises).then(res => {
         let users: TUser[] = []
@@ -37,7 +37,7 @@ export const getUsersPosts = async (users: TUser[]) => {
         userPosts.push({ ...u, posts })
     })
 
-    const promises = users.map(user => userApi(`/posts/${user.id}`))
+    const promises = users.map(user => postApi.get(`/get/${user.id}`))
 
     const posts = await Promise.all(promises).then(res => {
         let posts: TPost[] = []

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, getUser } from '../api/utils';
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
-import { userApi } from '../api/userApi'
+import { userApi, postApi } from '../api/apiRoutes'
 import { TPost } from '../api/types'
 import { useUser } from '../context/UserContext';
 
@@ -15,7 +15,7 @@ const Profile = () => {
 
 
     const fetchPosts = async () => {
-        const { data } = await userApi(`/posts/${user.id}`)
+        const { data } = await postApi.get(`/get/${user.id}`)
 
         data.sort((a: TPost, b: TPost) => {
             return new Date(b.createdAt).getTime() - (new Date(a.createdAt).getTime())

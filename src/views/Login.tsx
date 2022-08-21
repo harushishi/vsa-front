@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authApi } from '../api/userApi';
+import { authApi } from '../api/apiRoutes';
 import { auth, updateUser } from '../api/utils'
 import { useUser } from '../context/UserContext'
 

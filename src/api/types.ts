@@ -25,6 +25,7 @@ export type TPost = {
     createdAt: Date,
     content: string,
     img: string,
+    video: string,
 }
 
 export type TPostProps = {

@@ -4,7 +4,7 @@ import { getUser, auth } from '../api/utils'
 import { useUser } from '../context/UserContext';
 import { getUserFollows, getUsersPosts } from '../api/mappers';
 import Navbar from '../components/Navbar';
-import { TFollowing, TPost, TPostProps, TUser, TUserPost } from '../api/types';
+import { TPost, TUserPost } from '../api/types';
 import Post from '../components/Post';
 
 const Home = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { userApi } from '../api/userApi';
+import { userApi } from '../api/apiRoutes';
 import { useNavigate } from 'react-router-dom';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { useUser } from '../context/UserContext';
