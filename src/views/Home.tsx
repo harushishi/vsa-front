@@ -6,6 +6,8 @@ import { getUserFollows, getUsersPosts } from '../api/mappers';
 import Navbar from '../components/Navbar';
 import { TPost, TUserPost } from '../api/types';
 import Post from '../components/Post';
+import Searchbar from '../components/Searchbar';
+import MirroredNavbar from '../components/MirroredNavbar';
 
 const Home = () => {
 
@@ -54,7 +56,9 @@ const Home = () => {
                 <div className="col-5 bg-black border-end border-secondary">
                     {renderPosts()}
                 </div>
-                <div className="col bg-black  border-secondary"></div>
+                <div className="col bg-black  border-secondary">
+                    <MirroredNavbar />
+                </div>
                 <div className="col  bg-black border-secondary"></div>
             </div>
         </div>

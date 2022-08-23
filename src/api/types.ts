@@ -8,7 +8,7 @@ export type TUser = {
     pfp: string;
 }
 
-export type TAuthorInfo = {
+export type TUserInfo = {
     id: string;
     name: string;
     pfp: string;
@@ -42,8 +42,6 @@ export type TPostProps = {
 export type TUserPost = TUser & { posts: Array<TPost> }
 
 export type TFollowing = {
-    id: number,
-    userId: number,
     followedUserId: number,
     followedUsername: string,
     followedUserPfp: string

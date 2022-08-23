@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TAuthorInfo, TPost } from '../api/types'
+import { TUserInfo, TPost } from '../api/types'
 import { userApi, postApi } from '../api/apiRoutes';
 
 const Post = (Props: TPost) => {
 
     let navigate = useNavigate();
     const date = new Date(Props.createdAt)
-    const [userInfo, setUserInfo] = useState<TAuthorInfo>({} as TAuthorInfo)
+    const [userInfo, setUserInfo] = useState<TUserInfo>({} as TUserInfo)
 
     async function deletePost() {
         try {
